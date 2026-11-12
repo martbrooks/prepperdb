@@ -23,7 +23,7 @@ Open Food Facts data is separate from this source release:
 - Individual database contents: [Database Contents Licence](https://opendatacommons.org/licenses/dbcl/1-0/).
 - Imported photographs: Open Food Facts contributors, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), with source attribution retained in the app.
 
-Imported photographs are resized/re-encoded; contributors and product source links are shown in the app's Sources and licences/product pages. Review upstream terms for redistributing your own collection. No private inventory, downloaded product-photo database, user accounts or credentials are shipped with v0.1. Product trademarks remain with their owners.
+Imported photographs are resized/re-encoded; contributors and product source links are shown in the app's Sources and licences/product pages. Review upstream terms for redistributing your own collection. No private inventory, downloaded product-photo database, user accounts or credentials are shipped with v0.0.1. Product trademarks remain with their owners.
 
 ## Python dependencies
 
