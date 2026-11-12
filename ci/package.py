@@ -37,6 +37,7 @@ def main():
                 "ARTWORK-LICENSE.txt",
                 "THIRD_PARTY_NOTICES.md",
                 "README.md",
+                "CONTRIBUTING.md",
                 "CHANGELOG.md",
                 "VERSION",
             ]

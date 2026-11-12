@@ -8,7 +8,7 @@ Use GitHub issues for bugs and suggestions. Include the version, browser/OS, dep
 
 ## Development checks
 
-Use Python 3.13 and follow [getting started](docs/getting-started.md), then:
+Use a source archive or Git checkout (the runtime bundle omits test tooling), Python 3.13 and [getting started](docs/getting-started.md), then:
 
 ```sh
 python -m pip install --require-hashes -r requirements-dev.lock
