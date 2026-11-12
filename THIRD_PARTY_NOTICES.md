@@ -1,6 +1,6 @@
 # Third-party notices and asset provenance
 
-The top-level licence applies to project code and owner-supplied/generated artwork only as stated there. It does not replace the licences of bundled libraries, installed dependencies or imported product data.
+Project code is licensed under GPL-3.0-only (`LICENSE`). Owner-supplied/generated project artwork in `static/branding/`, `static/icons/` and `static/placeholder.svg` is licensed under CC BY 4.0 (`ARTWORK-LICENSE.txt`); attribute Martin A. Brooks / PrepperDB, link the licence and indicate changes. It does not replace the licences of bundled libraries, installed dependencies or imported product data.
 
 ## Bundled browser barcode decoder
 
@@ -11,7 +11,7 @@ The local browser bundle contains both components. `static/vendor/manifest.json`
 
 ## Project graphics and screenshots
 
-The pantry banner, doodle background texture and helmeted tin favicon are included byte-for-byte in `static/branding/`. The original action-icon designs and their supplied sizes are included in `static/icons/`; `static/icons/SOURCES.md` records provenance and the AI-generated Delete item variant. The Photo missing SVG is project-authored. These graphics do not require an image-generation service to run. See the top-level licence for their release terms.
+The pantry banner, doodle background texture and helmeted tin favicon are included byte-for-byte in `static/branding/`. The original action-icon designs and their supplied sizes are included in `static/icons/`; `static/icons/SOURCES.md` records provenance and the AI-generated Delete item variant. The Photo missing SVG is project-authored. These graphics do not require an image-generation service to run. The project artwork terms above apply to these graphics; third-party product imagery is excluded.
 
 Screenshots in `docs/images/` were captured from the owner's current household installation with permission for publication, omitting browser chrome and hostname. They are illustrations, not a bundled starter database. Visible third-party product imagery/logos retain their respective rights; screenshot publication does not turn those into project-owned artwork.
 

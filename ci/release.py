@@ -5,6 +5,7 @@ import hashlib
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tarfile
 import zipfile
 
@@ -54,7 +55,7 @@ def main():
     runtime = args.output_dir / f"prepperdb-{version}-runtime-linux-x86_64.tar.gz"
     subprocess.run(
         [
-            "python3",
+            sys.executable,
             "ci/package.py",
             "--revision",
             revision,
@@ -70,7 +71,8 @@ def main():
         path
         for path in tracked
         if path.startswith(("static/branding/", "static/icons/"))
-        or path in {"static/placeholder.svg", "LICENSE", "THIRD_PARTY_NOTICES.md"}
+        or path
+        in {"static/placeholder.svg", "LICENSE", "ARTWORK-LICENSE.txt", "THIRD_PARTY_NOTICES.md"}
     )
     with zipfile.ZipFile(graphics, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for name in artwork:

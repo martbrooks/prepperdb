@@ -34,6 +34,7 @@ def main():
                 "manage.py",
                 "requirements.lock",
                 "LICENSE",
+                "ARTWORK-LICENSE.txt",
                 "THIRD_PARTY_NOTICES.md",
                 "README.md",
                 "CHANGELOG.md",

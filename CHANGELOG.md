@@ -2,7 +2,7 @@
 
 ## v0.1 — first public release
 
-PrepperDB becomes a public, self-hosted household supplies app, developed using AI coding tools. AI-generated and human-written contributions are welcome.
+PrepperDB becomes a public, self-hosted household supplies app, developed using AI coding tools. AI-generated and human-written contributions are welcome. Code is GPL-3.0-only; supplied/generated project artwork is CC BY 4.0, with third-party notices retained.
 
 Included: the four inventory views; local accounts; manual entry and optional Open Food Facts lookup; locally bundled barcode scanning; batches/multipacks; best-before/use-by dates; categories; product photos with editing; quick stock changes and 32-day History/Undo; dark/light themes; bundled artwork/icons; getting-started, operation and deployment guides; app screenshots; HTTP and HTTPS nginx/systemd examples.
 

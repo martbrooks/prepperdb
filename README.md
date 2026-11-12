@@ -60,3 +60,7 @@ The app records dates; it does not determine whether food is safe to eat. Best-b
 Read [CONTRIBUTING.md](CONTRIBUTING.md) for reporting bugs, proposing changes and running tests. AI-generated contributions are welcome when the contributor understands the change, explains it and reports actual test results.
 
 [Third-party notices](THIRD_PARTY_NOTICES.md) cover bundled barcode libraries and optionally imported product data/photos. Product photos in a running instance are not shipped as a starter database. See [release notes](CHANGELOG.md) and [backup/upgrade guidance](docs/operations.md).
+
+## Licence
+
+Code is **GPL-3.0-only** (GNU GPL version 3): [full licence](LICENSE). Project artwork is **CC BY 4.0**: credit Martin A. Brooks / PrepperDB, link the licence and indicate changes; see [artwork terms](ARTWORK-LICENSE.txt). Bundled third-party code and product data/imagery keep their own terms in [third-party notices](THIRD_PARTY_NOTICES.md). Copyright © 2026 Martin A. Brooks, to the extent copyright applies.

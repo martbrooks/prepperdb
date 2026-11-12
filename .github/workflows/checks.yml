@@ -72,7 +72,9 @@ jobs:
           python-version: '3.13'
       - name: Check version matches tag
         run: test "$GITHUB_REF_NAME" = "v$(cat VERSION)"
-      - run: python -m pip download --require-hashes --only-binary=:all: -r requirements.lock --dest /tmp/prepperdb-wheels
+      - run: >-
+          python -m pip download --require-hashes --only-binary=:all:
+          -r requirements.lock --dest /tmp/prepperdb-wheels
       - run: python ci/release.py --wheel-dir /tmp/prepperdb-wheels
       - name: Publish tagged release and graphics
         env:

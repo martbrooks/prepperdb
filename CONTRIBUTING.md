@@ -29,4 +29,4 @@ Browser tests use disposable synthetic data and block external requests. Runtime
 
 ## Licence
 
-Contributions use the repository's code licence. Only submit code and assets you are entitled to contribute, and retain third-party attribution. See `THIRD_PARTY_NOTICES.md` for separately licensed dependencies and data.
+Code contributions use GPL-3.0-only; contributions to project artwork use CC BY 4.0. Only submit code and assets you are entitled to contribute, and retain third-party attribution. See `THIRD_PARTY_NOTICES.md` for separately licensed dependencies and data.
