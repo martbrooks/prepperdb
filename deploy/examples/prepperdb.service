@@ -1,0 +1,26 @@
+[Unit]
+Description=PrepperDB household supplies
+After=network.target
+
+[Service]
+User=prepperdb
+Group=prepperdb-web
+SupplementaryGroups=prepperdb
+WorkingDirectory=/opt/prepperdb
+EnvironmentFile=/etc/prepperdb/runtime.env
+ExecStart=/opt/prepperdb/.venv/bin/python -m prepperdb.server
+RuntimeDirectory=prepperdb
+RuntimeDirectoryMode=0750
+UMask=0077
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/prepperdb /srv/prepperdb/static /run/prepperdb
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

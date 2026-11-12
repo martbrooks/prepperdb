@@ -1,0 +1,7 @@
+<li class="category-node" data-category-id="{{ category.pk }}">
+  <div class="category-node-row">
+    {% if category.tree_children %}{% with node_id=category.pk|stringformat:'s' %}{% include 'category_disclosure.html' with name=category.name content_id='category-children-'|add:node_id %}{% endwith %}{% else %}<span class="category-label"><span class="category-caret-space" aria-hidden="true"></span><span class="category-folder" aria-hidden="true"></span><span>{{ category.name }}</span></span>{% endif %}
+    <div class="actions category-node-actions"><a class="icon-button" href="{% url 'category_add' %}?parent={{ category.pk }}" aria-label="Add child to {{ category.path }}" title="Add child {{ category.path }}">{% include 'icon.html' with icon='add-category' %}</a><a class="icon-button" href="{% url 'category_edit' category.pk %}" aria-label="Edit {{ category.path }}" title="Edit {{ category.path }}">{% include 'icon.html' with icon='edit-category' %}</a><a class="category-delete icon-button" href="{% url 'category_delete' category.pk %}" aria-label="Delete {{ category.path }}" title="Delete {{ category.path }}">{% include 'icon.html' with icon='delete-category' %}</a></div>
+  </div>
+  {% if category.tree_children %}<ul class="category-children" id="category-children-{{ category.pk }}" aria-label="Subcategories of {{ category.path }}">{% for child in category.tree_children %}{% include 'category_branch.html' with category=child %}{% endfor %}</ul>{% endif %}
+</li>

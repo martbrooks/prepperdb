@@ -1,0 +1,9 @@
+#!/bin/sh
+# Install root-owned as /usr/local/sbin/prepperdb-manage (0755).
+set -eu
+umask 077
+set -a
+. /etc/prepperdb/runtime.env
+set +a
+cd /opt/prepperdb
+exec runuser -u prepperdb -- /opt/prepperdb/.venv/bin/python manage.py "$@"

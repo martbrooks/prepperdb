@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% load static %}
+{% block extra_scripts %}<script src="{% static 'scanner.js' %}" defer></script>{% endblock %}
+{% block content %}<section class="narrow"><p class="eyebrow">KEEP YOUR SUPPLIES UP TO DATE</p><h1>Add stock</h1>
+{% if lookup_message %}<p class="notice" role="status">{{ lookup_message }}</p>{% endif %}
+{% if not selected and not imported %}<section class="barcode-entry" aria-label="Barcode lookup">
+<form method="post" action="{% url 'lookup' %}" id="barcode-lookup">{% csrf_token %}
+<label for="lookup-barcode">Scan or enter a barcode</label><div class="row"><input id="lookup-barcode" name="barcode" type="text" inputmode="numeric" autocomplete="off" maxlength="64" required value="{{ form.barcode.value|default:'' }}"><button type="submit">Look up barcode</button></div>
+</form><div class="actions"><button type="button" id="scan-barcode" disabled data-decoder="{% static 'vendor/zxing-browser-0.2.1.min.js' %}">Scan barcode</button><label class="button quiet" for="barcode-photo">Use barcode photo</label><input id="barcode-photo" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"></div>
+<div id="scanner-panel" hidden><video id="barcode-video" muted autoplay playsinline></video><button type="button" id="stop-scanner" class="quiet">Stop camera</button></div>
+<p id="scanner-status" role="status" aria-live="polite">Saved products are checked first. New food products can be looked up online.</p>
+<details id="camera-help"><summary>Camera permissions and help</summary><p>Allow camera access when your browser asks. If access is blocked, allow the camera for this site in your browser's site settings, then reload and try again. On iPhone, also check that the browser has Camera access in the iPhone Settings app. Close any other app using the camera.</p><p>Use the normal HTTPS address. If your browser still cannot open the camera, try Safari on iPhone, use a barcode photo or type the digits above. A photo must show the whole barcode clearly.</p></details></section>
+<details><summary>Search online by product name</summary><form method="post" action="{% url 'lookup' %}">{% csrf_token %}<label for="online-name">Product name</label><div class="row"><input id="online-name" name="query" minlength="3" maxlength="120" required><button type="submit">Search online</button></div></form></details>
+{% endif %}
+{% if selected %}<p>Adding <strong>{{ selected.name }}</strong>.</p><a href="{% url 'add' %}">Choose another product</a>
+{% else %}<form class="search" method="get" action="{% url 'add' %}" data-catalogue><label for="catalogue-query">Find a saved product or barcode</label><div class="row"><input id="catalogue-query" type="search" autocomplete="off" placeholder="Name or barcode" aria-controls="catalogue-results"></div><p id="catalogue-status" role="status"></p><ul id="catalogue-results"></ul></form><p>Or enter a new product below. A name and quantity are enough.</p>{% endif %}
+{% if imported %}<aside class="lookup-preview">{% if imported.image_id %}<img src="{% url 'image' imported.image_id %}" width="110" height="110" alt="Product photo from Open Food Facts">{% endif %}<div><strong>Product found</strong><p>Check the name, individual size and pack count before saving.{% if imported.details.quantity_label %} Listed size: {{ imported.details.quantity_label }}.{% endif %}</p><a href="{{ imported.details.source_url }}" rel="noreferrer">Open Food Facts product details</a></div></aside>{% endif %}
+<form method="post" data-stock-entry>{% csrf_token %}{{ form.non_field_errors }}
+{% for hidden in form.hidden_fields %}{{ hidden }}{{ hidden.errors }}{% endfor %}
+{% include 'field.html' with field=form.name %}
+{% if selected %}{% include 'field.html' with field=form.variant %}{% endif %}
+{% include 'field.html' with field=form.quantity %}
+{% include 'field.html' with field=form.date_type %}
+{% include 'field.html' with field=form.date %}
+<details{% if form.errors or imported or form.size_suggested %} open{% endif %}><summary>Sizes, packs and other details</summary>
+{% include 'field.html' with field=form.items_per_pack %}
+{% include 'field.html' with field=form.size_value %}
+{% include 'field.html' with field=form.size_unit %}
+{% include 'field.html' with field=form.packaging %}
+{% include 'field.html' with field=form.category %}
+{% include 'field.html' with field=form.barcode %}
+</details>
+<p id="pack-summary" role="status">Quantity defaults to one individual item.</p><button type="submit">Save stock</button></form></section>{% endblock %}

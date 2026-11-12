@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% load stock_tags %}
+{% block content %}<h1>History</h1>
+<p>Stock changes from the last 32 days, newest first. Older history is removed automatically. Quantities refer to the affected batch.</p>
+{% for change in page %}<article class="batch history-entry"><div>
+<h2>{% if change.batch_id %}<a href="{% url 'product' change.batch.product_id %}">{{ change.product_name }}</a>{% else %}{{ change.product_name }}{% endif %}</h2>
+<p>{{ change.product_details }} · {{ change.batch_label }}</p>
+<p><strong>{{ change.reason_label }}: {{ change.before }} → {{ change.after }}</strong>{% if change.undone %} · Reversed{% endif %}</p>
+<p><time datetime="{{ change.created|date:'c' }}">{{ change.created|date:'d/m/Y H:i:s' }}</time> · {{ change.user.username|default:'Removed user' }}</p>
+</div>{% if change.can_undo %}<form method="post" action="{% url 'undo' change.pk %}">{% csrf_token %}<input type="hidden" name="token" value="{% operation_token %}"><input type="hidden" name="return_to" value="{{ request.get_full_path }}"><button type="submit" class="quiet">Undo this change</button></form>{% endif %}</article>
+{% empty %}<p>No stock changes in the last 32 days.</p>{% endfor %}
+{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">Newer changes</a>{% endif %}
+{% if page.has_next %}<a href="?page={{ page.next_page_number }}">Older changes</a>{% endif %}
+{% endblock %}

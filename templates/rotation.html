@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}<div class="heading"><div><p class="eyebrow">STOCK ROTATION</p><h1>Endangered stock</h1></div><a class="button quiet icon-button" href="{% url 'add' %}" aria-label="Add stock" title="Add stock">{% include 'icon.html' with icon='add-stock' %}</a></div>
+<p>Consider consuming dated stock soon if you can.</p>
+<div class="stock-browser stock-list"><h2>Dated stock</h2>
+{% if dated %}{% include 'stock_columns.html' with rotation=True %}<div class="stock-items" role="list" aria-label="Dated stock">{% for batch in dated %}{% include 'stock_item.html' with product=batch.product %}{% endfor %}</div>{% else %}<p class="empty">No dated stock.</p>{% endif %}
+<h2>Undated stock</h2>
+{% if undated %}{% include 'stock_columns.html' with rotation=True %}<div class="stock-items" role="list" aria-label="Undated stock">{% for batch in undated %}{% include 'stock_item.html' with product=batch.product %}{% endfor %}</div>{% else %}<p>No undated stock.</p>{% endif %}
+</div>{% endblock %}

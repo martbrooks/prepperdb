@@ -1,0 +1,1 @@
+{% if product.missing %}<p class="missing">Missing: {% for detail in product.missing_details %}<a href="{{ detail.url }}">{{ detail.label }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}</p>{% endif %}

@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<section class="narrow"><h1>Use last item?</h1><p>Use the last item of <strong>{{ product.name }}</strong>? This will leave none in stock. You can undo this in History.</p><form method="post" action="{% url 'use_one' product.pk %}">{% csrf_token %}{{ form }}<input type="hidden" name="confirm_last" value="1"><input type="hidden" name="return_to" value="{{ return_to }}"><div class="actions"><button type="submit">Use last item</button><a class="button quiet" href="{{ return_to }}">Cancel</a></div></form></section>{% endblock %}

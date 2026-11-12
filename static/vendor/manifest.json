@@ -1,0 +1,15 @@
+{
+  "@zxing/browser": {
+    "version": "0.2.1",
+    "source": "https://registry.npmjs.org/@zxing/browser/-/browser-0.2.1.tgz",
+    "integrity": "sha512-92pVfVDUXbc15xu9vIEmhNyqIEASMEkDF92CwT6T+7sg2EHXJRktH9CQKoQSXe51UtbNsj+Fm09H/JBWHMs/Sw==",
+    "licence": "MIT"
+  },
+  "@zxing/library": {
+    "version": "0.23.0",
+    "source": "https://registry.npmjs.org/@zxing/library/-/library-0.23.0.tgz",
+    "integrity": "sha512-6fkkoFwP8CHxl6ugnPsj74PLJgX2iRv5zczGAyt5OBzQgxFhuhF0NCEc4t4OvSr8xAv2MRLlI0Iu9ZGDZQ2urA==",
+    "licence": "Apache-2.0"
+  },
+  "bundle_sha256": "066bc34edfcdd4a33f0964aeec967752a0dea1ccaf36e58e319ac9fcb5070f6a"
+}

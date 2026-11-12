@@ -1,0 +1,29 @@
+{% load static %}<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title|default:"Household stock" }} · prepperdb</title>
+  <link rel="icon" type="image/png" sizes="1254x1254" href="{% static 'branding/favicon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'branding/favicon.png' %}">
+  <script src="{% static 'theme.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'app.css' %}">
+  <script src="{% static 'app.js' %}" defer></script>
+  {% block extra_scripts %}{% endblock %}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="masthead"><a class="brand" href="{% url 'stock' %}">prepperdb <span>Household supplies</span></a>
+<div class="header-actions"><button class="quiet icon-button" type="button" id="theme-toggle" aria-label="Use light theme" title="Use light theme" hidden><span data-theme-icon="light">{% include 'icon.html' with icon='toggle-light-mode' %}</span><span data-theme-icon="dark" hidden>{% include 'icon.html' with icon='toggle-dark-mode' %}</span></button>{% if user.is_authenticated %}<form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="quiet icon-button" type="submit" aria-label="Sign out" title="Sign out">{% include 'icon.html' with icon='sign-out' %}</button></form>{% endif %}</div></div></header>
+{% if user.is_authenticated %}<nav aria-label="Stock views">
+  <a href="{% url 'stock' %}">Stock status</a><a href="{% url 'rotation' %}">Endangered stock</a>
+  <a href="{% url 'attention' %}">Needs attention</a><a href="{% url 'out_of_stock' %}">Out of stock</a>
+  <a href="{% url 'categories' %}">Categories</a><a href="{% url 'history' %}">History</a>
+</nav>{% endif %}
+<template id="quantity-stepper"><div class="quantity-stepper"><button type="button" class="quiet icon-button" data-step="-1">{% include 'icon.html' with icon='decrease-count' %}</button><button type="button" class="quiet icon-button" data-step="1">{% include 'icon.html' with icon='increase-count' %}</button></div></template>
+<main id="main">
+{% for message in messages %}<p class="notice {{ message.tags }}" role="status">{{ message }}</p>{% endfor %}
+{% block content %}{% endblock %}
+</main>
+<footer>Simple stock keeping. All stock changes are saved locally.<br>Optional product data: <a href="https://world.openfoodfacts.org/">Open Food Facts</a> · <a href="{% url 'credits' %}">Sources and licences</a></footer>
+</body></html>

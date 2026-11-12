@@ -1,0 +1,9 @@
+{% load static stock_tags %}{% with next=batch|default:product.next_batch %}
+<article class="stock-item{% if batch %} stock-batch-item{% if batch.date and batch.date < today %} past{% endif %}{% endif %}" role="listitem" data-product-id="{{ product.pk }}"{% if batch %} data-batch-id="{{ batch.pk }}"{% endif %}>
+<img class="product-image" src="{% if product.image_id %}{% url 'image' product.image_id %}{% else %}{% static 'placeholder.svg' %}{% endif %}" width="64" height="64" alt="{% if product.image_id %}{{ product.name }}{% else %}No product image{% endif %}" loading="lazy">
+<div class="stock-product"><div class="product-title" role="heading" aria-level="{% if batch %}3{% else %}{{ group.level|add:'1' }}{% endif %}"><a href="{% url 'product' product.pk %}">{{ product.name }}</a></div><p>{{ product.size_label }}{% if product.packaging %} · {{ product.packaging }}{% endif %}</p></div>
+<p class="stock-quantity"><strong>{% if batch %}{{ batch.quantity }}{% else %}{{ product.total }}{% endif %}</strong></p>
+<p class="stock-date">{% if next %}<span class="stock-field-label">{% if batch %}Date:{% else %}Next:{% endif %} </span>{{ next.date_label }}{% if batch and batch.date %}<span class="helptext">{{ batch.rotation_label }}</span>{% endif %}{% else %}No stock remaining{% endif %}</p>
+{% include 'stock_actions.html' %}
+<div class="stock-missing">{% include 'missing.html' %}</div>
+</article>{% endwith %}

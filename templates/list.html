@@ -1,0 +1,8 @@
+{% extends 'base.html' %}{% load static stock_tags %}
+{% block content %}<div class="heading"><div><p class="eyebrow">YOUR HOUSEHOLD INVENTORY</p><h1>{{ title }}</h1></div><a class="button quiet icon-button" href="{% url 'add' %}" aria-label="Add stock" title="Add stock">{% include 'icon.html' with icon='add-stock' %}</a></div>
+{% if title == 'Stock status' %}<form class="search" method="get"><label for="filter">Find in stock</label><div class="row"><input id="filter" type="search" name="q" value="{{ query }}" placeholder="Product name"><button type="submit" class="quiet">Search</button></div></form>{% endif %}
+{% if stock_tree %}<div class="stock-browser stock-list" data-category-explorer data-tree-storage="{{ tree_storage }}"{% if query %} data-tree-transient{% endif %}>
+{% include 'tree_controls.html' %}
+<ul class="category-tree stock-tree" aria-label="Stock categories">{% for group in stock_tree %}{% include 'stock_branch.html' %}{% endfor %}</ul>
+</div>{% else %}{% include 'stock_empty.html' %}{% endif %}
+{% endblock %}

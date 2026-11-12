@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %}
+{% block extra_scripts %}<script src="{% static 'photo.js' %}" defer></script>{% endblock %}
+{% block content %}<section class="narrow photo-editor"><a href="{% url 'product' product.pk %}">← {{ product.name }}</a><h1>Manage photo</h1>
+<form method="post" enctype="multipart/form-data" data-photo-editor{% if product.image_id %} data-photo-source="{% url 'image' product.image_id %}"{% endif %}>{% csrf_token %}{{ form.non_field_errors }}
+{% for hidden in form.hidden_fields %}{{ hidden }}{{ hidden.errors }}{% endfor %}
+{% include 'field.html' with field=form.photo %}
+<div class="photo-preview"><img data-photo-fallback src="{% if product.image_id %}{% url 'image' product.image_id %}{% else %}{% static 'placeholder.svg' %}{% endif %}" alt="{% if product.image_id %}Current photo for {{ product.name }}{% else %}Photo missing{% endif %}" width="800" height="800"><canvas width="800" height="800" aria-label="Square photo preview" role="img" hidden></canvas></div>
+<p data-photo-status role="status" class="helptext"></p>
+<noscript><p>Preview adjustments need JavaScript. You can still upload a photo, set the controls and save; the saved image will be square.</p></noscript>
+{% include 'field.html' with field=form.zoom %}{% include 'field.html' with field=form.horizontal %}{% include 'field.html' with field=form.vertical %}{% include 'field.html' with field=form.rotation %}
+<div class="actions"><button type="button" class="quiet" data-photo-reset hidden>Reset adjustments</button><button type="submit">Save photo</button><a href="{% url 'product' product.pk %}">Cancel</a></div>
+</form>{% if product.image_id %}<p class="danger-zone"><a href="{% url 'remove_photo' product.pk %}">Remove photo</a></p>{% endif %}</section>{% endblock %}

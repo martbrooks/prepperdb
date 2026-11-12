@@ -1,0 +1,84 @@
+name: Checks and release
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --require-hashes -r requirements.lock -r requirements-dev.lock
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: python manage.py makemigrations --check --dry-run
+        env:
+          PREPPERDB_DEVELOPMENT: '1'
+      - run: python manage.py test --noinput
+        env:
+          PREPPERDB_DEVELOPMENT: '1'
+      - run: python ci/production_check.py
+      - run: python ci/migration_check.py
+      - run: python ci/wsgi_check.py
+      - run: python ci/http_check.py
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --require-hashes -r requirements.lock -r requirements-dev.lock
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python ci/browser.py
+        env:
+          PREPPERDB_BROWSER: ${{ matrix.browser }}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: failure()
+        with:
+          name: browser-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [checks, browser]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.13'
+      - name: Check version matches tag
+        run: test "$GITHUB_REF_NAME" = "v$(cat VERSION)"
+      - run: python -m pip download --require-hashes --only-binary=:all: -r requirements.lock --dest /tmp/prepperdb-wheels
+      - run: python ci/release.py --wheel-dir /tmp/prepperdb-wheels
+      - name: Publish tagged release and graphics
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME" --verify-tag
+          --title "PrepperDB $GITHUB_REF_NAME" --notes-file CHANGELOG.md
+          dist/*-source.tar.gz dist/*-runtime-linux-x86_64.tar.gz dist/*-graphics.zip dist/SHA256SUMS

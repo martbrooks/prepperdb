@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}<section class="narrow"><a href="{% url 'stock' %}">← Back to stock</a><h1>{{ title }}</h1>{% if detail %}<p>{{ detail }}</p>{% endif %}
+{% if no_submit %}{{ form.non_field_errors }}<p><a href="{% url 'stock' %}">Reload stock</a> to check current quantities.</p>
+{% else %}<form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button type="submit">{{ button|default:'Save' }}</button></form>{% endif %}
+</section>{% endblock %}

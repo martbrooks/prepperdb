@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %}
+{% block content %}<a href="{% url 'stock' %}">← Stock status</a><div class="heading"><div><p class="eyebrow">{{ product.category|default:'Uncategorised' }}</p><h1>{{ product.name }}</h1><p>{{ product.size_label }}{% if product.packaging %} · {{ product.packaging }}{% endif %}</p></div><img class="product-image" src="{% if product.image_id %}{% url 'image' product.image_id %}{% else %}{% static 'placeholder.svg' %}{% endif %}" width="90" height="90" alt="{% if product.image_id %}{{ product.name }}{% else %}No product image{% endif %}"></div>
+<p class="big-quantity">{{ product.total }} <span>in stock</span></p>
+{% if product.total %}<p>Use one takes from: <strong>{{ product.next_batch.date_label }}</strong></p>{% endif %}
+<div class="actions">{% if product.total %}<form action="{% url 'use_one' product.pk %}" method="post"{% if product.total == 1 %} data-last-item="{{ product.name }}"{% endif %}>{% csrf_token %}{{ use_form }}<button class="quiet icon-button" type="submit" aria-label="Use one" title="Use one">{% include 'icon.html' with icon='decrease-count' %}</button></form>{% endif %}<a class="button quiet icon-button" href="{% url 'add' %}?product={{ product.pk }}" aria-label="Add stock" title="Add stock">{% include 'icon.html' with icon='add-stock' %}</a><a href="{% url 'edit' product.pk %}">Correct product details</a><a href="{% url 'edit_photo' product.pk %}">Manage photo</a></div>
+{% include 'missing.html' %}
+{% if product.source_url %}<p class="helptext">Product details{% if product.image.source_url %} and photo{% endif %}: <a href="{{ product.source_url }}" rel="noreferrer">Open Food Facts contributors</a>. <a href="{% url 'credits' %}">Sources and licences</a>.</p>{% endif %}
+{% if product.image_id and not product.image.source_url %}<p class="helptext">Custom product photo.</p>{% endif %}
+{% for barcode in product.barcodes.all %}<p>Barcode: {{ barcode.code }}</p>{% endfor %}
+<h2>Batches</h2>
+{% for batch in batches %}<article class="batch"><div><h3>{{ batch.date_label }}</h3><p>{{ batch.quantity }} in stock · {{ batch.rotation_label }}</p></div><div class="actions"><a class="button quiet" href="{% url 'adjust' batch.pk %}">Use / set / discard</a><a href="{% url 'edit_batch' batch.pk %}">Correct date</a></div></article>{% empty %}<p>No stock remaining. Add stock to replenish this item.</p>{% endfor %}
+<p class="danger-zone"><a href="{% url 'delete' product.pk %}">Delete item permanently</a></p>{% endblock %}

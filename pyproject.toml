@@ -1,0 +1,11 @@
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+"manage.py" = ["E402"]
+"prepperdb/wsgi.py" = ["E402"]
+"ci/offline_server.py" = ["E402"]

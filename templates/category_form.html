@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<section class="narrow"><a href="{% url 'categories' %}">← Categories</a><h1>{{ title }}</h1><form method="post">{% csrf_token %}{{ form.as_p }}<div class="actions"><button type="submit">Save category</button><a href="{% url 'categories' %}">Cancel</a></div></form></section>{% endblock %}

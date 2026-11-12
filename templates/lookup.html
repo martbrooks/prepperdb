@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block content %}<a href="{% url 'add' %}">← Back to entry</a><h1>Choose a product</h1><p>Results for “{{ query }}” from Open Food Facts. Check the exact size and packaging.</p>
+{% for result in results %}<article class="batch"><div><h2>{{ result.details.name }}</h2><p>{{ result.details.quantity_label|default:'Size unknown' }} · {{ result.details.packaging|default:'Packaging unknown' }}</p><p>{{ result.category_label }} · Barcode {{ result.code }}</p></div><a class="button" href="{% url 'add' %}?lookup={{ result.pk }}">Use this product</a></article>{% endfor %}
+<p><a href="{% url 'add' %}">None of these — enter manually</a></p>{% endblock %}

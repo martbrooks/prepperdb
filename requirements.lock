@@ -1,0 +1,12 @@
+# Python 3.13 runtime; regenerate deliberately and verify against the test suite.
+# Install with: python -m pip install --require-hashes -r requirements.lock
+asgiref==3.13.0 \
+    --hash=sha256:f9596a2434512686473d50f96ff6207fbba49ae1a785dfac614df4aeb085674d
+django==5.2.18 \
+    --hash=sha256:92ed81d500be6408ecd704d7bd1366c534f30427bffcc63c5fefb129561aec7c
+sqlparse==0.6.0 \
+    --hash=sha256:b861c0288ce2fa56209a9a6412d2e066ac664b3873b89c26c9d8415e8e32996f
+waitress==3.0.2 \
+    --hash=sha256:c56d67fd6e87c2ee598b76abdd4e96cfad1f24cacdea5078d382b1f9d7b5ed2e
+pillow==13.0.0 \
+    --hash=sha256:5f56499c1a74d2b862beb0c33b8016f99d095858455df9d21583bbbc1c15b582

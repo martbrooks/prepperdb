@@ -1,0 +1,9 @@
+<li class="category-node stock-branch" data-category-id="{{ group.id }}">
+<div class="category-heading" role="heading" aria-level="{{ group.level }}">{% include 'category_disclosure.html' with name=group.name content_id='stock-category-'|add:group.id %}</div>
+<div id="stock-category-{{ group.id }}" class="stock-branch-content">
+{% if group.products %}
+{% include 'stock_columns.html' %}
+<div class="stock-items" role="list" aria-label="Items in {{ group.path }}">{% for product in group.products %}{% include 'stock_item.html' %}{% endfor %}</div>
+{% endif %}
+{% if group.children %}<ul class="category-children">{% for child in group.children %}{% include 'stock_branch.html' with group=child %}{% endfor %}</ul>{% endif %}
+</div></li>
