@@ -1,6 +1,6 @@
 # Deploying PrepperDB
 
-The reference architecture is deliberately small: **one Debian 13 VM → nginx → one Waitress process → SQLite on local disk**. A separate edge proxy may sit in front. Proxmox is optional: an ordinary Linux host/VM works. There is no container image in v0.1. The examples use systemd and Debian's `www-data` nginx account; adapt these if your distribution differs.
+The reference architecture is deliberately small: **one Debian 13 VM → nginx → one Waitress process → SQLite on local disk**. A separate edge proxy may sit in front. Proxmox is optional: an ordinary Linux host/VM works. There is no container image in v0.0.1. The examples use systemd and Debian's `www-data` nginx account; adapt these if your distribution differs.
 
 The original household instance has one vCPU and about 1 GiB RAM. This is a useful starting point, not a guaranteed capacity limit. Size disk space for stock images, database growth and backups. Start with one app instance; see [SQLite and multiple users](operations.md#sqlite-and-multiple-users).
 
@@ -21,7 +21,7 @@ sudo install -d -o root -g prepperdb -m 0750 /etc/prepperdb
 sudo chown prepperdb:prepperdb /srv/prepperdb/static
 ```
 
-These account commands are for a new host; do not recreate existing accounts or overwrite an existing installation. Download and extract the **v0.1 source archive**. From its extracted directory, copy the application into `/opt/prepperdb` (the application directory, not a parent containing another nested release directory):
+These account commands are for a new host; do not recreate existing accounts or overwrite an existing installation. Download and extract the **v0.0.1 source archive**. From its extracted directory, copy the application into `/opt/prepperdb` (the application directory, not a parent containing another nested release directory):
 
 ```sh
 sudo cp -a . /opt/prepperdb/

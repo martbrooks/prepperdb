@@ -10,7 +10,7 @@ import time
 from urllib.parse import urljoin, urlsplit
 
 DNS = ThreadPoolExecutor(max_workers=2, thread_name_prefix="provider-dns")
-USER_AGENT = "prepperdb/0.1 (self-hosted household stock lookup)"
+USER_AGENT = "prepperdb/0.0.1 (self-hosted household stock lookup)"
 
 
 class ProviderError(Exception):

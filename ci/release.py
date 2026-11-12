@@ -16,7 +16,7 @@ def main():
     parser.add_argument("--output-dir", type=Path, default=Path("dist"))
     args = parser.parse_args()
     version = Path("VERSION").read_text().strip()
-    if not re.fullmatch(r"[0-9]+\.[0-9]+(?:\.[0-9]+)?", version):
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version):
         raise SystemExit("Invalid release version.")
     if not Path("LICENSE").is_file():
         raise SystemExit("Select and include the project licence before building a public release.")

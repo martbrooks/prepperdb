@@ -13,7 +13,7 @@ sudo apt-get update
 sudo apt-get install python3-venv sqlite3 git
 ```
 
-Download the v0.1 source archive from this repository's Releases page, extract it, and enter the extracted directory. A Git checkout works too; check out the `v0.1` tag for this release. No JavaScript build or external account is required.
+Download the v0.0.1 source archive from this repository's Releases page, extract it, and enter the extracted directory. A Git checkout works too; check out the `v0.0.1` tag for this release. No JavaScript build or external account is required.
 
 ## Install and run
 

@@ -2,7 +2,7 @@
 
 A small, self-hosted app for keeping track of household supplies and using them before they go to waste. Add a few tins, record quantities and dates, and see what needs using next. A name and quantity are enough to get started; fill in the other details later.
 
-**v0.1** is the first public release. PrepperDB was developed using AI coding tools under its owner's direction. Suggestions, human-written patches and AI-generated contributions are all welcome. No AI service, subscription or API key is needed to run it.
+**v0.0.1** is the first public release. PrepperDB was developed using AI coding tools under its owner's direction. Suggestions, human-written patches and AI-generated contributions are all welcome. No AI service, subscription or API key is needed to run it.
 
 [Getting started](docs/getting-started.md) · [User guide](docs/user-guide.md) · [Deployment](docs/deployment.md) · [HTTPS](docs/https.md) · [Contributing](CONTRIBUTING.md)
 
@@ -49,7 +49,7 @@ Open **http://127.0.0.1:8000/** and sign in with the account you just created. T
 
 PrepperDB uses **Django, SQLite and one Waitress process** behind nginx. There is no separate database server, Redis, Node runtime or frontend build step.
 
-**SQLite is intended for one household with light concurrent use.** Several accounts can share the app, but **every account sees and can change the same inventory**. There are no private inventories, roles or tenant boundaries. SQLite permits one writer at a time: a few occasional users are different from a busy multiuser service. High write concurrency, multiple application replicas and network-mounted database files are outside v0.1's supported design. PostgreSQL is not a drop-in supported option. [Details and limits](docs/operations.md#sqlite-and-multiple-users).
+**SQLite is intended for one household with light concurrent use.** Several accounts can share the app, but **every account sees and can change the same inventory**. There are no private inventories, roles or tenant boundaries. SQLite permits one writer at a time: a few occasional users are different from a busy multiuser service. High write concurrency, multiple application replicas and network-mounted database files are outside v0.0.1's supported design. PostgreSQL is not a drop-in supported option. [Details and limits](docs/operations.md#sqlite-and-multiple-users).
 
 **HTTPS is recommended, but optional.** Production defaults to HTTPS; set `PREPPERDB_HTTPS=0` to choose HTTP explicitly. HTTP exposes credentials and sessions to network observers, and phone-camera scanning normally needs a trusted HTTPS origin (localhost is a browser exception). Manual entry and photo barcode decoding remain available. [Choose and configure HTTP or HTTPS](docs/https.md).
 

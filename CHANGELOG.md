@@ -1,6 +1,6 @@
 # Release notes
 
-## v0.1 — first public release
+## v0.0.1 — first public release
 
 PrepperDB becomes a public, self-hosted household supplies app, developed using AI coding tools. AI-generated and human-written contributions are welcome. Code is GPL-3.0-only; supplied/generated project artwork is CC BY 4.0, with third-party notices retained.
 
